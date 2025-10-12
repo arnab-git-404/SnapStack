@@ -109,9 +109,9 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
           </Button>
         </motion.form>
 
-        <p className="text-center text-sm text-muted-foreground mt-8">
+        {/* <p className="text-center text-sm text-muted-foreground mt-8">
           Hint: The password is "artlover"
-        </p>
+        </p> */}
       </motion.div>
     </div>
   );
