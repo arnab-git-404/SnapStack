@@ -146,7 +146,7 @@ export const Navbar = () => {
 
   const links = [
     { name: 'Home', path: '/' },
-    { name: 'Gallery', path: '/gallery' },
+    // { name: 'Gallery', path: '/gallery' },
     { name: 'Arnab', path: '/arnab' },
     { name: 'Deblina', path: '/deblina' },
     { name: 'Together', path: '/together' },
