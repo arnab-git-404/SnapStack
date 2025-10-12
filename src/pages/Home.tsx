@@ -23,10 +23,10 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
-              Atelier Gallery
+              Welcome
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              A curated collection of contemporary artworks that speak to the soul
+              A collection filled with love and meaning, capturing moments that touch the heart
             </p>
           </motion.div>
 
@@ -38,20 +38,18 @@ const Home = () => {
               className="max-w-5xl mx-auto"
             >
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <Link to={`/artwork/${featuredArtwork.id}`} className="group">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.4 }}
                     className="relative overflow-hidden rounded-sm aspect-[4/5]"
                   >
                     <img
-                      src={featuredArtwork.imageUrl}
+                      src='/Home/01.jpeg'
                       alt={featuredArtwork.title}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </motion.div>
-                </Link>
 
                 <div className="space-y-6">
                   <div>
@@ -61,11 +59,11 @@ const Home = () => {
                     <h2 className="text-4xl md:text-5xl font-bold mb-3">
                       {featuredArtwork.title}
                     </h2>
-                    <p className="text-xl text-muted-foreground mb-2">
+                    {/* <p className="text-xl text-muted-foreground mb-2">
                       {featuredArtwork.artist}
-                    </p>
+                    </p> */}
                     <p className="text-sm text-muted-foreground">
-                      {featuredArtwork.year} • {featuredArtwork.medium}
+                      2025 • Ranaghat, West Bengal
                     </p>
                   </div>
 
@@ -78,12 +76,15 @@ const Home = () => {
                     variant="outline"
                     className="group border-foreground hover:bg-foreground hover:text-background"
                   >
-                    <Link to={`/artwork/${featuredArtwork.id}`}>
+                    {/* <Link to={`/artwork/${featuredArtwork.id}`}>
                       View Artwork
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    </Link> */}
+
                   </Button>
                 </div>
+
+
               </div>
             </motion.div>
           )}
