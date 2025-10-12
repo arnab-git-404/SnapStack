@@ -9,117 +9,6 @@ export interface Photo {
 }
 
 export const photos: Photo[] = [
-  // Arnab Photos
-  {
-    id: 'a1',
-    title: 'Mountain Adventure',
-    category: 'arnab',
-    year: 2024,
-    location: 'Himalayas',
-    description: 'A breathtaking journey through the mountains',
-    imageUrl: '/Screenshot 2024-01-22 023925.jpg',
-  },
-  {
-    id: 'a2',
-    title: 'Urban Explorer',
-    category: 'arnab',
-    year: 2023,
-    location: 'Tokyo',
-    description: 'Exploring the vibrant streets of Tokyo',
-    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80',
-  },
-  {
-    id: 'a3',
-    title: 'Coastal Wanderer',
-    category: 'arnab',
-    year: 2023,
-    location: 'Goa',
-    description: 'Sunset by the sea',
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-  },
-  {
-    id: 'a4',
-    title: 'Desert Dreams',
-    category: 'arnab',
-    year: 2022,
-    location: 'Rajasthan',
-    description: 'Lost in the golden sands',
-    imageUrl: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
-  },
-  {
-    id: 'a5',
-    title: 'Winter Wonderland',
-    category: 'arnab',
-    year: 2022,
-    location: 'Kashmir',
-    description: 'Snow-covered peaks and valleys',
-    imageUrl: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=800&q=80',
-  },
-  {
-    id: 'a6',
-    title: 'City Lights',
-    category: 'arnab',
-    year: 2021,
-    location: 'Mumbai',
-    description: 'The city that never sleeps',
-    imageUrl: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800&q=80',
-  },
-
-  // Deblina Photos
-  {
-    id: 'd1',
-    title: 'Garden Serenity',
-    category: 'deblina',
-    year: 2024,
-    location: 'Darjeeling',
-    description: 'Among the tea gardens',
-    imageUrl: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80',
-  },
-  {
-    id: 'd2',
-    title: 'Artistic Soul',
-    category: 'deblina',
-    year: 2023,
-    location: 'Kolkata',
-    description: 'Capturing the artistic spirit',
-    imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80',
-  },
-  {
-    id: 'd3',
-    title: 'Morning Bloom',
-    category: 'deblina',
-    year: 2023,
-    location: 'Shillong',
-    description: 'Surrounded by nature',
-    imageUrl: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=80',
-  },
-  {
-    id: 'd4',
-    title: 'Cultural Heritage',
-    category: 'deblina',
-    year: 2022,
-    location: 'Jaipur',
-    description: 'Exploring rich traditions',
-    imageUrl: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80',
-  },
-  {
-    id: 'd5',
-    title: 'Peaceful Retreat',
-    category: 'deblina',
-    year: 2022,
-    location: 'Rishikesh',
-    description: 'Finding inner peace',
-    imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80',
-  },
-  {
-    id: 'd6',
-    title: 'Autumn Vibes',
-    category: 'deblina',
-    year: 2021,
-    location: 'Sikkim',
-    description: 'Colors of the season',
-    imageUrl: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&q=80',
-  },
 
   // Together Photos
   {
@@ -129,7 +18,7 @@ export const photos: Photo[] = [
     year: 2024,
     location: 'Paris',
     description: 'Creating memories together',
-    imageUrl: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80',
+    imageUrl: '/Together/01.jpg',
   },
   {
     id: 't2',
@@ -196,17 +85,7 @@ export const photos: Photo[] = [
   },
 ];
 
-export const arnabPhotos: Photo[] =[
- {
-    id: 'a1',
-    title: 'Mountain Adventure',
-    category: 'arnab',
-    year: 2024,
-    location: 'Himalayas',
-    description: 'A breathtaking journey through the mountains',
-    imageUrl: '/Screenshot 2024-01-22 023925.jpg',
-  },
-]
+
 
 
 export const getPhotosByCategory = (category: Photo['category']) => {
