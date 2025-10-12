@@ -4,7 +4,7 @@ import { Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-const CORRECT_PASSWORD = 'gublu';
+const CORRECT_PASSWORD = 'gublu__2001';
 const STORAGE_KEY = 'gallery_access';
 
 interface PasswordGateProps {
