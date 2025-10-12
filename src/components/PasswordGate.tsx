@@ -4,7 +4,7 @@ import { Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-const CORRECT_PASSWORD = 'artlover';
+const CORRECT_PASSWORD = 'gublu';
 const STORAGE_KEY = 'gallery_access';
 
 interface PasswordGateProps {
@@ -62,7 +62,7 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
           >
             <Lock className="w-8 h-8 text-foreground" />
           </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">Atelier Gallery</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">Arnab & Deblina's Photo Album</h1>
           <p className="text-muted-foreground text-lg">
             Enter password to access our collection
           </p>
