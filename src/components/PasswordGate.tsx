@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import toast from 'react-hot-toast';
 
 const CORRECT_PASSWORD = 'gublu__2001';
 const STORAGE_KEY = 'gallery_access';
@@ -32,6 +33,7 @@ export const PasswordGate = ({ children }: PasswordGateProps) => {
       setIsAuthenticated(true);
       setError('');
     } else {
+      toast.error('Incorrect password. Please try again.');
       setError('Incorrect password. Please try again.');
       setPassword('');
     }

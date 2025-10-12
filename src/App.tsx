@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/ui/toaster";
+// import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ import Arnab from "./pages/Arnab";
 import Deblina from "./pages/Deblina";
 import Together from "./pages/Together";
 import NotFound from "./pages/NotFound";
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
