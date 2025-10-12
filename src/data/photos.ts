@@ -20,6 +20,52 @@ export const photos: Photo[] = [
     description: 'Creating memories together',
     imageUrl: '/Together/01.jpg',
   },
+  {
+    id: 't2',
+    title: 'Cafe Date',
+    category: 'together',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'Enjoying a cozy cafe date',
+    imageUrl: '/Together/02.jpeg',
+  },
+  {
+    id: 't3',
+    title: 'Saptami, Durgapuja',
+    category: 'together',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'Walking hand in hand at sunset',
+    imageUrl: '/Together/03.jpeg',
+  },
+  {
+    id: 't4',
+    title: 'Astami, Durgapuja',
+    category: 'together',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'Cherishing moments together',
+    imageUrl: '/Together/04.jpeg',
+  },
+  {
+    id: 't5',
+    title: 'DurgaPuja',
+    category: 'together',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'A beautiful day spent together',
+    imageUrl: '/Together/05.jpeg',
+  },
+  {
+    id: 't6',
+    title: 'Joyful Moments',
+    category: 'together',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'Capturing joyful moments together',
+    imageUrl: '/Together/06.jpeg',
+  },
+  
   
 ];
 

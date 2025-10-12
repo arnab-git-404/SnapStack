@@ -10,33 +10,25 @@ export interface Photo {
 
 
 export const arnabPhotos: Photo[] =[
- {
-    id: 'a1',
-    title: 'Mountain Adventure',
-    category: 'arnab',
-    year: 2024,
-    location: 'Himalayas',
-    description: 'A breathtaking journey through the mountains',
-    imageUrl: '/Screenshot 2024-01-22 023925.jpg',
-  },
   {
     id: 'a2',
-    title: 'Urban Explorer',
+    title: 'DurgaPuja',
     category: 'arnab',
-    year: 2023,
-    location: 'Tokyo',
-    description: 'Exploring the vibrant streets of Tokyo',
-    imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80',
+    year: 2025,
+    location: 'Ranaghat',
+    description: 'A vibrant celebration of culture',
+    imageUrl: '/Arnab/01.jpeg',
   },
   {
-    id: 'a3',
-    title: 'Coastal Wanderer',
-    category: 'arnab',
-    year: 2023,
-    location: 'Goa',
-    description: 'Sunset by the sea',
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-  },
+     id: 'a1',
+     title: 'Free Hand Body Building',
+     category: 'arnab',
+     year: 2021,
+     location: 'Bolpur',
+     description: 'A breathtaking journey through the mountains',
+     imageUrl: '/Arnab/02.jpg',
+   },
+ 
 ];
 
 
