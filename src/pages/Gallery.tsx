@@ -19,7 +19,7 @@ const Gallery = () => {
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-4">Gallery</h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              Browse our curated selection of contemporary artworks
+              Browse our curated selection of contemporary moments
             </p>
           </motion.div>
         </div>

@@ -4,13 +4,13 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PhotoCard } from '@/components/PhotoCard';
 import { YearFilter } from '@/components/YearFilter';
-import { getPhotosByCategory, getAvailableYears } from '@/data/photos';
+import { getDeblinaPhotosByCategory, getDeblinaAvailableYears } from '@/data/deblinaPhotos';
 
 const Deblina = () => {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  
-  const categoryPhotos = getPhotosByCategory('deblina');
-  const categoryYears = getAvailableYears().filter(year => 
+
+  const categoryPhotos = getDeblinaPhotosByCategory('deblina');
+  const categoryYears = getDeblinaAvailableYears().filter(year =>
     categoryPhotos.some(photo => photo.year === year)
   );
   

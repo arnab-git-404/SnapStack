@@ -196,6 +196,19 @@ export const photos: Photo[] = [
   },
 ];
 
+export const arnabPhotos: Photo[] =[
+ {
+    id: 'a1',
+    title: 'Mountain Adventure',
+    category: 'arnab',
+    year: 2024,
+    location: 'Himalayas',
+    description: 'A breathtaking journey through the mountains',
+    imageUrl: '/Screenshot 2024-01-22 023925.jpg',
+  },
+]
+
+
 export const getPhotosByCategory = (category: Photo['category']) => {
   return photos.filter(photo => photo.category === category);
 };

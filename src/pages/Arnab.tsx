@@ -4,13 +4,13 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PhotoCard } from '@/components/PhotoCard';
 import { YearFilter } from '@/components/YearFilter';
-import { getPhotosByCategory, getAvailableYears, photos } from '@/data/photos';
+import { getArnabPhotosByCategory, getArnabAvailableYears } from '@/data/arnabPhotos';
 
 const Arnab = () => {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   
-  const categoryPhotos = getPhotosByCategory('arnab');
-  const categoryYears = getAvailableYears().filter(year => 
+  const categoryPhotos = getArnabPhotosByCategory('arnab');
+  const categoryYears = getArnabAvailableYears().filter(year =>
     categoryPhotos.some(photo => photo.year === year)
   );
   
