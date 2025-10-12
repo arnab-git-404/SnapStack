@@ -9,7 +9,7 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4">Atelier Gallery</h3>
+            <h3 className="text-2xl font-bold mb-4">Dear's Gallery</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Curating exceptional contemporary art from emerging and established artists worldwide.
             </p>
@@ -66,7 +66,10 @@ export const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Atelier Gallery. All rights reserved.</p>
+          <p>&copy; {currentYear} Dear's Gallery. All rights reserved.</p>
+        </div>
+        <div className="pt-8 text-center text-sm text-muted-foreground">
+          <p>Developed By Arnab Mukherjee</p>
         </div>
       </div>
     </footer>
