@@ -1,73 +1,87 @@
-# Welcome to your Lovable project
+# 📸 Photo Gallery
 
-## Project info
+A polished, password-gated gallery artistry and memories. Built with Vite + React + TypeScript + Tailwind CSS for a fast, responsive, and modern viewing experience.
 
-**URL**: https://lovable.dev/projects/3638793c-c017-454d-937a-9ecedb0c8041
+## ✨ Features
 
-## How can I edit this code?
+- 🔐 Password-protected landing via [`PasswordGate`](src/components/PasswordGate.tsx)
+- 🖼️ Dynamic photo grids powered by [`PhotoCard`](src/components/PhotoCard.tsx) and [`ArtworkCard`](src/components/ArtworkCard.tsx)
+- 🧭 Smooth navigation with [`Navbar`](src/components/Navbar.tsx) and a curated [`Footer`](src/components/Footer.tsx)
+- 🗓️ Year-based filtering through [`YearFilter`](src/components/YearFilter.tsx)
+- ⚡ Vite dev server with instant updates and Tailwind-powered styling
 
-There are several ways of editing your application.
+## 🧰 Tech Stack
 
-**Use Lovable**
+- React 18 + TypeScript
+- Vite build tooling
+- Tailwind CSS + PostCSS
+- Node.js package scripts
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3638793c-c017-454d-937a-9ecedb0c8041) and start prompting.
+## 🚀 Quick Start
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit the local dev server (default: http://localhost:5173) and enter the configured passphrase.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Production Build
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm run preview
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Linting
 
-## What technologies are used for this project?
+```bash
+npm run lint
+```
 
-This project is built with:
+## 🗂️ Project Structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```text
+src/
+├─ App.tsx
+├─ components/
+│  ├─ Navbar.tsx
+│  ├─ Footer.tsx
+│  ├─ PasswordGate.tsx
+│  ├─ PhotoCard.tsx
+│  ├─ ArtworkCard.tsx
+│  └─ YearFilter.tsx
+├─ data/
+│  ├─ deblinaPhotos.ts
+│  ├─ arnabPhotos.ts
+│  └─ artworks.ts
+├─ hooks/
+├─ lib/
+└─ pages/
+```
 
-## How can I deploy this project?
+- [`App`](src/App.tsx): entry composition root
+- [`main`](src/main.tsx): client bootstrap with ReactDOM
+- [`index.css`](src/index.css) & [`App.css`](src/App.css): Tailwind layers + global tweaks
+- [`deblinaPhotos`](src/data/deblinaPhotos.ts), [`arnabPhotos`](src/data/arnabPhotos.ts), [`artworks`](src/data/artworks.ts): content catalogs
 
-Simply open [Lovable](https://lovable.dev/projects/3638793c-c017-454d-937a-9ecedb0c8041) and click on Share -> Publish.
+## 🔧 Configuration
 
-## Can I connect a custom domain to my Lovable project?
+- Update Tailwind and theme tokens in [`tailwind.config.ts`](tailwind.config.ts)
+- Adjust Vite settings in [`vite.config.ts`](vite.config.ts)
+- Control component registration via [`components.json`](components.json) if using UI tooling
 
-Yes, you can!
+## 📸 Content Management
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Add or modify photo entries in the data files under [`src/data`](src/data). Each entry drives the metadata rendered by the corresponding card components, keeping the UI configuration-free.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 🤝 Contributing
+
+1. Fork and clone
+2. Create a feature branch
+3. Commit with clear messages
+4. Open a pull request with context and screenshots
+
+## 🛟 Support
+
+For issues, open a GitHub ticket or reach out to the maintainer. Contributions, feedback, and new memories are always welcome! 💌

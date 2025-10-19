@@ -26,8 +26,8 @@ const App = () => (
           <PasswordGate>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/artwork/:id" element={<ArtworkDetail />} />
+              {/* <Route path="/gallery" element={<Gallery />} /> */}
+              {/* <Route path="/artwork/:id" element={<ArtworkDetail />} /> */}
               <Route path="/arnab" element={<Arnab />} />
               <Route path="/deblina" element={<Deblina />} />
               <Route path="/together" element={<Together />} />
