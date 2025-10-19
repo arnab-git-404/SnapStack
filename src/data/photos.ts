@@ -9,8 +9,15 @@ export interface Photo {
 }
 
 export const photos: Photo[] = [
-
-  // Together Photos
+{
+    id: 't0',
+    title: 'Birthday Gift to Arnab',
+    category: 'together',
+    year: 2025,
+    location: 'From Deblina',
+    description: 'Our first Sketch',
+    imageUrl: '/Together/sketch.png',
+},
   {
     id: 't1',
     title: 'Perfect Moment',
