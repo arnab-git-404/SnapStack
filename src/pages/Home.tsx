@@ -103,15 +103,16 @@ const Home = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Explore Our Collection
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            Discover exceptional works from talented artists around the world
-          </p>
+            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            Discover exceptional photos from 2020 to {new Date().getFullYear()} <br/>
+             Each tells a unique story through the lens.
+            </p>
           <Button
             asChild
             size="lg"
             className="bg-foreground text-background hover:bg-foreground/90"
           >
-            <Link to="/gallery">
+            <Link to="/together">
               View Gallery
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>

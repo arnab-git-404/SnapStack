@@ -24,8 +24,8 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/gallery" className="text-muted-foreground hover:text-accent transition-colors">
-                  Gallery
+                <Link to="/together" className="text-muted-foreground hover:text-accent transition-colors">
+                  Together
                 </Link>
               </li>
             </ul>
