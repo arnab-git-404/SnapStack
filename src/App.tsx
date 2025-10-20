@@ -13,6 +13,8 @@ import Deblina from "./pages/Deblina";
 import Together from "./pages/Together";
 import NotFound from "./pages/NotFound";
 import { Toaster } from 'react-hot-toast';
+import PuzzlePage from "./pages/Puzzle";
+import { Navbar } from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <PasswordGate>
+        <Navbar/>
             <Routes>
               <Route path="/" element={<Home />} />
               {/* <Route path="/gallery" element={<Gallery />} /> */}
@@ -31,6 +34,7 @@ const App = () => (
               <Route path="/arnab" element={<Arnab />} />
               <Route path="/deblina" element={<Deblina />} />
               <Route path="/together" element={<Together />} />
+              <Route path="/puzzle" element={<PuzzlePage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </PasswordGate>
