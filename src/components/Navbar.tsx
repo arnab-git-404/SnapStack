@@ -150,6 +150,7 @@ export const Navbar = () => {
     { name: 'Arnab', path: '/arnab' },
     { name: 'Deblina', path: '/deblina' },
     { name: 'Together', path: '/together' },
+    { name: 'Puzzle', path: '/puzzle' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
