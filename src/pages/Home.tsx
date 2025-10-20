@@ -10,9 +10,7 @@ const Home = () => {
   const featuredArtwork = artworks.find(art => art.featured);
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      
+    <div className="min-h-screen">      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-6 py-20 mt-16">
         <div className="max-w-7xl w-full">

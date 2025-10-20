@@ -1,7 +1,10 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Photo } from '@/data/photos';
-import { Calendar, MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import { Photo } from "@/data/photos";
+import { Calendar, MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link
+import { Button } from "@/components/ui/button"; // Import Button
+import { Puzzle } from "lucide-react"; // Import an icon
 
 interface PhotoCardProps {
   photo: Photo;
@@ -16,22 +19,22 @@ export const PhotoCard = ({ photo, index, allPhotos }: PhotoCardProps) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen || !allPhotos) return;
-      
-      if (e.key === 'Escape') {
+
+      if (e.key === "Escape") {
         setIsOpen(false);
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === "ArrowLeft") {
         setCurrentIndex((prev) => (prev > 0 ? prev - 1 : allPhotos.length - 1));
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === "ArrowRight") {
         setCurrentIndex((prev) => (prev < allPhotos.length - 1 ? prev + 1 : 0));
       }
     };
 
     if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, allPhotos]);
 
@@ -66,7 +69,7 @@ export const PhotoCard = ({ photo, index, allPhotos }: PhotoCardProps) => {
             alt={photo.title}
             className="w-full h-full object-cover"
             whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             loading="lazy"
           />
           <motion.div
@@ -166,24 +169,19 @@ export const PhotoCard = ({ photo, index, allPhotos }: PhotoCardProps) => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 className="relative w-full max-w-6xl"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
-                  src={currentPhoto.imageUrl}
-                  alt={currentPhoto.title}
-                  className="w-full h-auto rounded-lg"
-                />
-                
-                {/* Photo info */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   className="mt-6 bg-black/80 backdrop-blur-sm p-6 rounded-lg"
                 >
-                  <h3 className="text-white text-2xl font-semibold mb-3">{currentPhoto.title}</h3>
+                  <h3 className="text-white text-2xl font-semibold mb-3">
+                    {currentPhoto.title}
+                  </h3>
                   <div className="flex flex-wrap items-center gap-4">
                     {currentPhoto.location && (
                       <div className="flex items-center gap-2 text-white/90 text-sm">
@@ -196,7 +194,24 @@ export const PhotoCard = ({ photo, index, allPhotos }: PhotoCardProps) => {
                       <span>{currentPhoto.year}</span>
                     </div>
                   </div>
+                  <Button
+                    asChild
+                    className=" border-white/50 mt-2"
+                  >
+                    <Link to={`/puzzle?image=${currentPhoto.imageUrl}`}>
+                      <Puzzle className="mr-2" />
+                      Create a Puzzle
+                    </Link>
+                  </Button>
                 </motion.div>
+
+                <img
+                  src={currentPhoto.imageUrl}
+                  alt={currentPhoto.title}
+                  className="w-full h-auto rounded-lg"
+                />
+
+                {/* Photo info */}
 
                 {/* Mobile Navigation Buttons */}
                 {allPhotos && allPhotos.length > 1 && (
