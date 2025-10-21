@@ -20,10 +20,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "react-hot-toast";
 import { Upload, LogOut, Github, Database } from "lucide-react";
-import {
-  uploadImageToGitHub,
-  savePhotoToMongoDB,
-} from "@/services/photoService";
+
 
 interface PhotoFormData {
   title: string;
@@ -101,7 +98,9 @@ const AdminDashboard = () => {
         fetch(`${server}/api/users/upload-photo`, {
           method: "POST",
           body: uploadData,
-        }).then((response) => {
+          credentials: 'include'}
+      
+      ).then((response) => {
           if (!response.ok) {
             throw new Error("Upload failed");
           }
@@ -210,7 +209,7 @@ const AdminDashboard = () => {
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="cursor-pointer"
+                  className="cursor-pointer "
                 />
                 {preview && (
                   <div className="mt-4 relative w-full h-64 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700">
