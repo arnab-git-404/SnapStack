@@ -5,28 +5,50 @@
 //   children: React.ReactNode;
 // }
 
-// export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+// const getCookie = (name: string): string | null => {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; ${name}=`);
+//   if (parts.length === 2) {
+//     return parts.pop()?.split(";").shift() || null;
+//   }
+//   return null;
+// };
+
+// export const ProtectedRoute = async ({ children }: ProtectedRouteProps) => {
 //   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-//   useEffect(() => {
-//     // Check if admin token exists in localStorage
-//     const token =
-//     setIsAuthenticated(!!token);
-//   }, []);
+//   try {
+//     const response = await fetch(
+//         `${import.meta.env.VITE_SERVER_URL}/api/auth/verify`,
+//         {
+//           credentials: "include",
+//         }
+//       );
 
-//   // While checking authentication, show nothing or a loader
+//     setIsAuthenticated(response.ok);
+//     console.log("Is verification response:", isAuthenticated);
+//   } catch (error) {
+//     setIsAuthenticated(false);
+//   }
+
 //   if (isAuthenticated === null) {
-//     return null;
+//     return (
+//       <div className="flex items-center justify-center min-h-screen">
+//         Loading...
+//       </div>
+//     );
 //   }
 
-//   // If not authenticated, redirect to login
+//   console.log("isAuthenticated:", isAuthenticated);
+
 //   if (!isAuthenticated) {
-//     return <Navigate to="/admin/login" replace />;
+//     return <Navigate to="/login" replace />;
 //   }
 
-//   // If authenticated, render the protected content
 //   return <>{children}</>;
 // };
+
+
 
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -35,30 +57,11 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const getCookie = (name: string): string | null => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return parts.pop()?.split(";").shift() || null;
-  }
-  return null;
-};
-
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(false);
 
   useEffect(() => {
     const verifyAuth = async () => {
-      // const token = getCookie("accessToken") || getCookie("refreshToken");
-
-      // if (!token) {
-      //   setIsAuthenticated(false);
-      //   return;
-      // }
-
-      // setIsAuthenticated(true);
-
-      // Optional: Verify token with backend
       try {
         const response = await fetch(
           `${import.meta.env.VITE_SERVER_URL}/api/auth/verify`,
@@ -68,9 +71,9 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         );
 
         setIsAuthenticated(response.ok);
-        console.log("Is  verification response:", isAuthenticated);
-
+        
       } catch (error) {
+        console.error("Auth verification error:", error);
         setIsAuthenticated(false);
       }
     };
@@ -86,7 +89,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     );
   }
 
-console.log("isAuthenticated:", isAuthenticated);
+  console.log("isAuthenticated:", isAuthenticated);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
