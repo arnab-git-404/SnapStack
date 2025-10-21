@@ -23,45 +23,44 @@ import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import ForgotPassword from "./pages/ForgotPasswordPage";
 
+// Smooth scrolling with Lenis
+import { ReactLenis, useLenis } from 'lenis/react'
+
 const queryClient = new QueryClient();
 
-const App = () => (
+function App() {
+
+
+  
+  return (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       <TooltipProvider>
         <Toaster />
+        <ReactLenis root />
+
         <BrowserRouter>
-          <PasswordGate>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/gallery" element={<Gallery />} /> */}
-              {/* <Route path="/artwork/:id" element={<ArtworkDetail />} /> */}
-              <Route path="/arnab" element={<Arnab />} />
-              <Route path="/deblina" element={<Deblina />} />
-              <Route path="/together" element={<Together />} />
-              <Route path="/puzzle" element={<PuzzlePage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword /> } />
+            <Route path="/signup" element={ <Signup />} />
 
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
+            <Route path="/" element={ <ProtectedRoute><Home /></ProtectedRoute> } />
+            <Route path="/arnab" element={ <ProtectedRoute><Arnab /></ProtectedRoute> } />
+            <Route path="/deblina" element={ <ProtectedRoute><Deblina /></ProtectedRoute> } />
+            <Route path="/together" element={ <ProtectedRoute><Together /></ProtectedRoute> } />
+            <Route path="/puzzle" element={ <ProtectedRoute><PuzzlePage /></ProtectedRoute> } />
+            <Route path="/upload" element={ <ProtectedRoute><AdminDashboard /></ProtectedRoute> } />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </PasswordGate>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );
 
+}
 export default App;
