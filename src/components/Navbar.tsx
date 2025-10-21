@@ -151,6 +151,7 @@ export const Navbar = () => {
     { name: 'Deblina', path: '/deblina' },
     { name: 'Together', path: '/together' },
     { name: 'Puzzle', path: '/puzzle' },
+    { name: 'Upload', path:'/admin/dashboard'}
   ];
 
   const isActive = (path: string) => location.pathname === path;
