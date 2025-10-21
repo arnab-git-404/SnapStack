@@ -30,6 +30,8 @@ out/
 .temp/
 .tmp/
 
+
+.vite/
 # Local environment files
 .env
 .env.local
