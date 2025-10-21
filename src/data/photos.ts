@@ -1,5 +1,4 @@
 export interface Photo {
-  id: string;
   title: string;
   category: 'arnab' | 'deblina' | 'together';
   year: number;
@@ -10,7 +9,7 @@ export interface Photo {
 
 export const photos: Photo[] = [
 {
-    id: 't0',
+  
     title: 'Birthday Gift to Arnab',
     category: 'together',
     year: 2025,
@@ -19,7 +18,7 @@ export const photos: Photo[] = [
     imageUrl: '/Together/sketch.png',
 },
   {
-    id: 't1',
+    
     title: 'Perfect Moment',
     category: 'together',
     year: 2024,
@@ -28,7 +27,7 @@ export const photos: Photo[] = [
     imageUrl: '/Together/01.jpg',
   },
   {
-    id: 't2',
+    
     title: 'Cafe Date',
     category: 'together',
     year: 2025,
@@ -37,7 +36,7 @@ export const photos: Photo[] = [
     imageUrl: '/Together/02.jpeg',
   },
   {
-    id: 't3',
+   
     title: 'Saptami, Durgapuja',
     category: 'together',
     year: 2025,
@@ -46,7 +45,6 @@ export const photos: Photo[] = [
     imageUrl: '/Together/03.jpeg',
   },
   {
-    id: 't4',
     title: 'Astami, Durgapuja',
     category: 'together',
     year: 2025,
@@ -55,7 +53,7 @@ export const photos: Photo[] = [
     imageUrl: '/Together/04.jpeg',
   },
   {
-    id: 't5',
+    
     title: 'DurgaPuja',
     category: 'together',
     year: 2025,
@@ -64,7 +62,7 @@ export const photos: Photo[] = [
     imageUrl: '/Together/05.jpeg',
   },
   {
-    id: 't6',
+  
     title: 'Joyful Moments',
     category: 'together',
     year: 2025,
