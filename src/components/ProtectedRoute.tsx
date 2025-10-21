@@ -69,8 +69,10 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
             credentials: "include",
           }
         );
-
-        setIsAuthenticated(response.ok);
+          const data = await response.json();
+          setIsAuthenticated(data.success);
+          
+        // setIsAuthenticated(response.success);
         
       } catch (error) {
         console.error("Auth verification error:", error);
