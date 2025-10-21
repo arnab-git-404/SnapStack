@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -43,7 +45,7 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +75,7 @@ export default function Signup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen py-8">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md border mt-16">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
           <CardDescription className="text-center">
@@ -120,7 +122,7 @@ export default function Signup() {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
                   required
@@ -146,7 +148,7 @@ export default function Signup() {
                   id="confirmPassword"
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
@@ -170,7 +172,7 @@ export default function Signup() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Creating account..." : "Sign Up"}
             </Button>
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center ">
               Already have an account?{" "}
               <Link to="/login" className="text-blue-600 hover:underline">
                 Login

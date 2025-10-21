@@ -3,8 +3,17 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Lock } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,14 +29,17 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Important for cookies
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Important for cookies
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -36,7 +48,7 @@ export default function Login() {
       }
 
       // Cookies are automatically set by the browser
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -46,20 +58,39 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen ">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
-          <CardDescription className="text-center">
+      <Card className="w-full max-w-md border mt-16 ">
+        <CardHeader className="space-y-1  ">
+          <div className="text-center mb-5">
+            {/* <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-6"
+            >
+              <Lock className="w-8 h-8 text-foreground" />
+            </motion.div> */}
+            <h1 className="text-4xl md:text-5xl font-bold mb-3">
+              Arnab & Deblina's Photo Album
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              Welcome Back! Please login to your account
+            </p>
+          </div>
+
+          {/* <CardTitle className="text-2xl font-bold text-center">
+            Login
+          </CardTitle> */}
+          {/* <CardDescription className="text-center">
             Enter your credentials to access your account
-          </CardDescription>
+          </CardDescription> */}
         </CardHeader>
         <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            {error && (
+          <CardContent className="space-y-2">
+            {/* {error && (
               <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-md">
                 {error}
               </div>
-            )}
+            )} */}
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -78,7 +109,7 @@ export default function Login() {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -110,7 +141,7 @@ export default function Login() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Logging in..." : "Login"}
             </Button>
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center ">
               Don't have an account?{" "}
               <Link to="/signup" className="text-blue-600 hover:underline">
                 Sign up
@@ -121,4 +152,4 @@ export default function Login() {
       </Card>
     </div>
   );
-};
+}
