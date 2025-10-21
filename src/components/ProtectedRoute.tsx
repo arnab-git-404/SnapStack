@@ -58,7 +58,7 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     const verifyAuth = async () => {
@@ -71,7 +71,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         );
           const data = await response.json();
           setIsAuthenticated(data.success);
-          
+
         // setIsAuthenticated(response.success);
         
       } catch (error) {
