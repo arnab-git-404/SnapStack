@@ -21,7 +21,6 @@ import {
 import { toast } from "react-hot-toast";
 import { Upload, LogOut, Github, Database } from "lucide-react";
 
-
 interface PhotoFormData {
   title: string;
   category: "arnab" | "deblina" | "together";
@@ -98,9 +97,8 @@ const AdminDashboard = () => {
         fetch(`${server}/api/users/upload-photo`, {
           method: "POST",
           body: uploadData,
-          credentials: 'include'}
-      
-      ).then((response) => {
+          credentials: "include",
+        }).then((response) => {
           if (!response.ok) {
             throw new Error("Upload failed");
           }
@@ -131,10 +129,24 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("adminToken");
-    toast.success("Logged out successfully");
-    navigate("/admin/login");
+  const handleLogout = async () => {
+    // sessionStorage.removeItem("adminToken");
+
+    try {
+      const response = await fetch(`${server}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        toast.success("Logged out successfully");
+      }
+
+      navigate("/login");
+    } catch (error) {
+      toast.error("Failed to log out");
+      console.error("Logout error:", error);
+    }
   };
 
   return (
