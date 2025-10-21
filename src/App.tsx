@@ -20,7 +20,7 @@ import { Navbar } from "./components/Navbar";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import Login from "./pages/LoginPage";
-import Signup from "./pages/SignUpPage";
+import Signup from "./pages/SignupPage";
 import ForgotPassword from "./pages/ForgotPasswordPage";
 
 const queryClient = new QueryClient();
