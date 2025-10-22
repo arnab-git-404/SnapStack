@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "react-hot-toast";
 import { Upload, LogOut, Github, Database } from "lucide-react";
+import { error } from "console";
 
 interface PhotoFormData {
   title: string;
@@ -93,25 +94,49 @@ const AdminDashboard = () => {
       uploadData.append("description", formData.description);
       uploadData.append("photo", formData.imageFile);
 
-      const response = await toast.promise(
+      // const response = await toast.promise(
+      //   fetch(`${server}/api/users/upload-photo`, {
+      //     method: "POST",
+      //     body: uploadData,
+      //     credentials: "include",
+      //   }).then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error("Upload failed");
+      //     }
+      //     return response.json();
+      //   }),
+      //   {
+      //     loading: "Uploading...",
+      //     success: "✅ Upload complete! Photo is now live!",
+      //     // error: "❌ Upload failed! Please refresh and try again.",
+      //     error: (err) => `❌ ${err.message || "Upload failed"}`,
+      //   }
+      // );
+
+      // Reset form
+
+      await toast.promise(
         fetch(`${server}/api/users/upload-photo`, {
           method: "POST",
           body: uploadData,
           credentials: "include",
-        }).then((response) => {
+        }).then(async (response) => {
           if (!response.ok) {
-            throw new Error("Upload failed");
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(
+              errorData.message || `Error ${response.status}: Upload failed`
+            );
           }
           return response.json();
         }),
         {
           loading: "Uploading...",
           success: "✅ Upload complete! Photo is now live!",
-          error: "❌ Upload failed! Please refresh and try again.",
+          error: (err) => `❌ ${err.message || "Upload failed"}`,
         }
       );
 
-      // Reset form
+      // Reset form after successful upload
       setFormData({
         title: "",
         category: "together",
@@ -121,8 +146,10 @@ const AdminDashboard = () => {
         imageFile: null,
       });
       setPreview("");
+
+      const fileInput = document.getElementById("image") as HTMLInputElement;
+      if (fileInput) fileInput.value = "";
     } catch (error: any) {
-      // toast.error(`❌ Failed to upload: ${error.message}`);
       console.error("Upload error:", error);
     } finally {
       setUploading(false);
@@ -130,8 +157,6 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = async () => {
-    // sessionStorage.removeItem("adminToken");
-
     try {
       const response = await fetch(`${server}/api/auth/logout`, {
         method: "POST",
