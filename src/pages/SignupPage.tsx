@@ -65,7 +65,7 @@ export default function Signup() {
       }
 
       // Cookies are automatically set by the browser
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

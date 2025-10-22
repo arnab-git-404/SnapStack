@@ -64,7 +64,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const verifyAuth = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/api/auth/verify`,
+          `${import.meta.env.VITE_SERVER_URL}/api/auth/validate`,
           {
             credentials: "include",
           }
