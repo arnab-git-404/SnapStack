@@ -107,7 +107,7 @@ const AdminDashboard = () => {
         {
           loading: "Uploading...",
           success: "✅ Upload complete! Photo is now live!",
-          error: "❌ Upload failed",
+          error: "❌ Upload failed! Please refresh and try again.",
         }
       );
 
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
       });
       setPreview("");
     } catch (error: any) {
-      toast.error(`❌ Failed to upload: ${error.message}`);
+      // toast.error(`❌ Failed to upload: ${error.message}`);
       console.error("Upload error:", error);
     } finally {
       setUploading(false);
