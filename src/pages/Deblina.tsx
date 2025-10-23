@@ -1,27 +1,22 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
-import { PhotoCard } from '@/components/PhotoCard';
-import { YearFilter } from '@/components/YearFilter';
-import { getDeblinaPhotosByCategory, getDeblinaAvailableYears } from '@/data/deblinaPhotos';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { PhotoCard } from "@/components/PhotoCard";
+import { YearFilter } from "@/components/YearFilter";
+import { usePhotos } from "@/hooks/usePhotos";
+
 
 const Deblina = () => {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-  const categoryPhotos = getDeblinaPhotosByCategory('deblina');
-  const categoryYears = getDeblinaAvailableYears().filter(year =>
-    categoryPhotos.some(photo => photo.year === year)
-  );
-  
+  const { photos, years, loading, error } = usePhotos("deblina");
+
   const filteredPhotos = selectedYear
-    ? categoryPhotos.filter(photo => photo.year === selectedYear)
-    : categoryPhotos;
+    ? photos.filter((photo) => photo.year === selectedYear)
+    : photos;
 
   return (
     <div className="min-h-screen">
-      <Navbar />
-      
+
       <div className="max-w-7xl mx-auto px-6 py-24 mt-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,37 +28,31 @@ const Deblina = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mb-8">
             Capturing beauty in every moment
           </p>
-          
+
           <YearFilter
-            years={categoryYears}
+            years={years}
             selectedYear={selectedYear}
             onYearChange={setSelectedYear}
           />
         </motion.div>
 
-        {/* {filteredPhotos.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredPhotos.map((photo, index) => (
-              <PhotoCard key={photo.id} photo={photo} index={index} />
-            ))}
-          </div>
-        ) : (
+        {loading ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <p className="text-muted-foreground text-lg">
-              No photos found for {selectedYear}
-            </p>
+            <p className="text-muted-foreground text-lg">Loading photos...</p>
           </motion.div>
-        )} */}
-      
-      
-              {filteredPhotos.length > 0 ? (
+        ) : filteredPhotos.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredPhotos.map((photo, index) => (
-              <PhotoCard key={photo.id} photo={photo} index={index} allPhotos={filteredPhotos} />
+              <PhotoCard
+                key={photo.imageUrl}
+                photo={photo}
+                index={index}
+                allPhotos={filteredPhotos}
+              />
             ))}
           </div>
         ) : (
@@ -73,14 +62,12 @@ const Deblina = () => {
             className="text-center py-20"
           >
             <p className="text-muted-foreground text-lg">
-              No photos found for {selectedYear}
+              No photos found {selectedYear ? `for ${selectedYear}` : ""}
             </p>
           </motion.div>
         )}
-      
-      </div>
 
-      <Footer />
+      </div>
     </div>
   );
 };
