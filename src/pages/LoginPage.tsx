@@ -14,6 +14,7 @@ import {
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,26 +29,40 @@ export default function Login() {
     setError("");
     setIsLoading(true);
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Important for cookies
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+    const loginPromise = fetch(
+      `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      }
+    ).then(async (response) => {
+      if (response.status === 404) {
+        throw new Error("User not found. Please check your email.");
       }
 
-      // Cookies are automatically set by the browser
+      if (response.status === 401) {
+        throw new Error("Invalid Password. Please try again.");
+      }
+
+      if (!response.ok) {
+        throw new Error("Login failed. Please try again.");
+      }
+
+      const data = await response.json();
+      return data;
+    });
+
+    try {
+      await toast.promise(loginPromise, {
+        loading: "Logging in...",
+        success: "Login successful!",
+        error: (err) => err.message || "An error occurred",
+      });
+
       navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
