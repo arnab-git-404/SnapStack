@@ -144,12 +144,16 @@ export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
 
+  const name = import.meta.env.VITE_CLIENT_NAME;
+  const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+  const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
+
   const links = [
     { name: 'Home', path: '/' },
     // { name: 'Gallery', path: '/gallery' },
-    { name: 'Arnab', path: '/arnab' },
-    { name: 'Deblina', path: '/deblina' },
-    { name: 'Together', path: '/together' },
+    { name: name, path: `/${name}` },
+    { name: partnerName, path: `/${partnerName}` },
+    { name: together, path: `/${together}` },
     { name: 'Puzzle', path: '/puzzle' },
     { name: 'Upload', path:'/upload'}
   ];

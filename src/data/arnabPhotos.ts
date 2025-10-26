@@ -67,20 +67,20 @@
 //   return Array.from(new Set(years)).sort((a, b) => b - a);
 // };
 
-
-
-
 import { useEffect } from "react";
+
+const name = import.meta.env.VITE_CLIENT_NAME;
+const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
 export interface Photo {
   title: string;
-  category: "arnab" | "deblina" | "together";
+  category: `${typeof name}` | `${typeof partnerName}` | `${typeof together}`;
   year: number;
   location?: string;
   description?: string;
   imageUrl: string;
 }
-
 
 const fetchPhotos = async (category: Photo["category"]): Promise<Photo[]> => {
   try {
@@ -96,7 +96,6 @@ const fetchPhotos = async (category: Photo["category"]): Promise<Photo[]> => {
     console.log("Fetched photos:", data.photos);
 
     return data.photos as Photo[];
-
   } catch (error) {
     console.error("Error fetching photos:", error);
     return [];
@@ -113,7 +112,6 @@ export const getArnabPhotosByYear = async (year: number) => {
   const photos = await fetchPhotos("arnab");
   return photos.filter((photo) => photo.year === year);
 };
-
 
 export const getArnabAvailableYears = async (category: Photo["category"]) => {
   const photos = await fetchPhotos(category);

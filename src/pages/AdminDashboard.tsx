@@ -22,9 +22,14 @@ import { toast } from "react-hot-toast";
 import { Upload, LogOut, Github, Database } from "lucide-react";
 import { error } from "console";
 
+const name = import.meta.env.VITE_CLIENT_NAME;
+const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
+
 interface PhotoFormData {
   title: string;
-  category: "arnab" | "deblina" | "together";
+  // category: "arnab" | "deblina" | "together";
+  category: `${typeof name}` | `${typeof partnerName}` | `${typeof together}`;
   year: number;
   location: string;
   description: string;
@@ -37,7 +42,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<PhotoFormData>({
     title: "",
-    category: "together",
+    category: `${typeof together}`,
     year: new Date().getFullYear(),
     location: "",
     description: "",
@@ -139,7 +144,7 @@ const AdminDashboard = () => {
       // Reset form after successful upload
       setFormData({
         title: "",
-        category: "together",
+        category: `${typeof together}`,
         year: new Date().getFullYear(),
         location: "",
         description: "",
@@ -278,17 +283,22 @@ const AdminDashboard = () => {
                 <Label htmlFor="category">Category *</Label>
                 <Select
                   value={formData.category}
-                  onValueChange={(value: "arnab" | "deblina" | "together") =>
-                    setFormData({ ...formData, category: value })
-                  }
+                  onValueChange={(
+                    value:
+                      | `${typeof name}`
+                      | `${typeof partnerName}`
+                      | `${typeof together}`
+                  ) => setFormData({ ...formData, category: value })}
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="arnab">Arnab</SelectItem>
-                    <SelectItem value="deblina">Deblina</SelectItem>
-                    <SelectItem value="together">Together</SelectItem>
+                    <SelectItem value={`${name}`}>{name}</SelectItem>
+                    <SelectItem value={`${partnerName}`}>
+                      {partnerName}
+                    </SelectItem>
+                    <SelectItem value={`${together}`}>{together}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

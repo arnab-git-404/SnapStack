@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,15 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock } from "lucide-react";
 import toast from "react-hot-toast";
+
+// Demo accounts
+const demoAccounts = [
+  {
+    label: "Demo User",
+    email: "test@gmail.com",
+    password: "Abcd@1234",
+  },
+];
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -71,6 +81,13 @@ export default function Login() {
     }
   };
 
+  const fillDemoAccount = (email: string, password: string) => {
+    setEmail(email);
+    setPassword(password);
+    setShowPassword(true);
+    toast.success("Demo credentials filled!");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen ">
       <Card className="w-full max-w-md border mt-16 ">
@@ -85,7 +102,8 @@ export default function Login() {
               <Lock className="w-8 h-8 text-foreground" />
             </motion.div> */}
             <h1 className="text-4xl md:text-5xl font-bold mb-3">
-              Arnab & Deblina's Photo Album
+              {/* Arnab & Deblina's Photo Album */}
+              SnapStack
             </h1>
             <p className="text-muted-foreground text-lg">
               Welcome Back! Please login to your account
@@ -156,6 +174,37 @@ export default function Login() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Logging in..." : "Login"}
             </Button>
+            
+            {/* Demo Accounts Section */}
+            <div className="w-full space-y-3">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or try demo accounts
+                  </span>
+                </div>
+              </div>
+              
+              <div className=" flex justify-center ">
+                {demoAccounts.map((account, index) => (
+                  <Button
+                    key={index}
+                    type="button"
+                    // variant="outline"
+                    size="sm"
+                    onClick={() => fillDemoAccount(account.email, account.password)}
+                    disabled={isLoading}
+                    className="text-xs"
+                  >
+                    {account.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
             <p className="text-sm text-center ">
               Don't have an account?{" "}
               <Link to="/signup" className="text-blue-600 hover:underline">

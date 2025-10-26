@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
-import Arnab from "./pages/Arnab";
+import Arnab from "./pages/yourName";
 import Login from "./pages/LoginPage";
-import Deblina from "./pages/Deblina";
+import Deblina from "./pages/partnerName";
 import Together from "./pages/Together";
 import NotFound from "./pages/NotFound";
 import PuzzlePage from "./pages/Puzzle";
@@ -23,6 +23,11 @@ import { ReactLenis, useLenis } from "lenis/react";
 const queryClient = new QueryClient();
 
 function App() {
+
+  const name = import.meta.env.VITE_CLIENT_NAME;
+  const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+  const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
@@ -59,7 +64,7 @@ function App() {
                 }
               />
               <Route
-                path="/arnab"
+                path={`/${name}`}
                 element={
                   <ProtectedRoute>
                     <Arnab />
@@ -67,7 +72,7 @@ function App() {
                 }
               />
               <Route
-                path="/deblina"
+                path={`/${partnerName}`}
                 element={
                   <ProtectedRoute>
                     <Deblina />
@@ -75,7 +80,7 @@ function App() {
                 }
               />
               <Route
-                path="/together"
+                path={`/${together}`}
                 element={
                   <ProtectedRoute>
                     <Together />

@@ -7,7 +7,9 @@ import { usePhotos } from "@/hooks/usePhotos";
 const Together = () => {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-  const { photos, years, loading, error } = usePhotos("together");
+  const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
+
+  const { photos, years, loading, error } = usePhotos(together);
 
     const filteredPhotos = selectedYear
     ? photos.filter((photo) => photo.year === selectedYear)
@@ -23,7 +25,7 @@ const Together = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Together</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">{together}</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mb-8">
             Our shared adventures and cherished memories
           </p>

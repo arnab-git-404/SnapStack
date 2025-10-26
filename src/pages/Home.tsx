@@ -8,6 +8,7 @@ import { artworks } from '@/data/artworks';
 
 const Home = () => {
   const featuredArtwork = artworks.find(art => art.featured);
+ const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
   return (
     <div className="min-h-screen">      
@@ -42,7 +43,7 @@ const Home = () => {
                     className="relative overflow-hidden rounded-sm aspect-[4/5]"
                   >
                     <img
-                      src='/Home/01.jpeg'
+                      src='/image.png'
                       alt={featuredArtwork.title}
                       className="w-full h-full object-cover"
                     />
@@ -110,7 +111,7 @@ const Home = () => {
             size="lg"
             className="bg-foreground text-background hover:bg-foreground/90"
           >
-            <Link to="/together">
+            <Link to={`/${together}`}>
               View Gallery
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
@@ -118,7 +119,6 @@ const Home = () => {
         </motion.div>
       </section>
 
-      <Footer />
     </div>
   );
 };
