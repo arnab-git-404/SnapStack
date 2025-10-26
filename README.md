@@ -32,7 +32,7 @@ A beautiful, modern photo gallery application built with React, TypeScript, and 
 
 ### 📁 Gallery Organization
 - Personal Gallery (Arnab)
-- Partner Gallery (Deblina)
+- Partner Gallery ()
 - Together Gallery
 - Year-based filtering
 - Full-screen photo viewer
@@ -88,10 +88,10 @@ npm >= 9.0.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/photo_gallery.git
+git clone https://github.com/arnab-git-404/SnapStack.git
 
 # Navigate to project directory
-cd photo_gallery
+cd SnapStack
 
 # Install dependencies
 npm install
@@ -265,34 +265,6 @@ Update `.env` to change:
 
 ### Component Library
 This project uses [shadcn/ui](https://ui.shadcn.com/) components. Configuration in `components.json`.
-
-### Available Radix UI Components
-- Accordion
-- Alert Dialog
-- Aspect Ratio
-- Avatar
-- Checkbox
-- Collapsible
-- Context Menu
-- Dialog
-- Dropdown Menu
-- Hover Card
-- Label
-- Menubar
-- Navigation Menu
-- Popover
-- Progress
-- Radio Group
-- Scroll Area
-- Select
-- Separator
-- Slider
-- Switch
-- Tabs
-- Toast
-- Toggle
-- Toggle Group
-- Tooltip
 
 ## 🚀 Deployment
 
