@@ -1,4 +1,4 @@
-# 📸 Photo Gallery - Contemporary Photo Album
+# 📸 SnapStack - Contemporary Photo Album
 
 A beautiful, modern photo gallery application built with React, TypeScript, and Tailwind CSS. This project features secure authentication, dynamic photo management, interactive puzzles, and a sleek dark mode interface.
 
@@ -163,7 +163,6 @@ photo_gallery/
 │   │   ├── Together.tsx
 │   │   ├── AdminDashboard.tsx
 │   │   ├── Puzzle.tsx
-│   │   └── ...
 │   ├── lib/
 │   │   └── utils.ts
 │   ├── App.tsx
@@ -389,7 +388,7 @@ For any queries or support, please open an issue in the repository.
 
 <div align="center">
   
-### 💖 Made with Love
+### SnapStack 💖
 
 **⭐ Star this repo if you find it helpful!**
 
