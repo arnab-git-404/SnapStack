@@ -2,10 +2,13 @@
 
 A beautiful, modern photo gallery application built with React, TypeScript, and Tailwind CSS. This project features secure authentication, dynamic photo management, interactive puzzles, and a sleek dark mode interface.
 
-![Version](https://img.shields.io/badge/version-0.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0-blue.svg)
 ![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.17-38B2AC?logo=tailwind-css)
+![Redis](https://img.shields.io/badge/Redis-7.0.0-DC382D?logo=redis)
+![MongoDB](https://img.shields.io/badge/MongoDB-6.0-47A248?logo=mongodb)
+![Lenis](https://img.shields.io/badge/Lenis-1.3.11-FF3D00?logo=lenis)
 
 ## ✨ Features
 
