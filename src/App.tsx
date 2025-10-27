@@ -19,6 +19,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AdminPanel from "./pages/AdminPanel";
 
 // Smooth scrolling with Lenis
 import { ReactLenis, useLenis } from "lenis/react";
@@ -55,6 +56,14 @@ function App() {
               <Route
                 path="/reset-password/:token"
                 element={<ResetPassword />}
+              />
+              <Route
+                path="/admin"
+                element={
+                
+                    <AdminPanel />
+                  
+                }
               />
 
               <Route path="/signup" element={<Signup />} />
