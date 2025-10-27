@@ -3,11 +3,15 @@ import { motion } from "framer-motion";
 import { PhotoCard } from "@/components/PhotoCard";
 import { YearFilter } from "@/components/YearFilter";
 import { usePhotos } from "@/hooks/usePhotos";
+import { useUser } from "@/context/UserContext";
 
 
 const Deblina = () => {
 
-  const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+  // const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
+
+    const { name, partnerName } = useUser();
+  
 
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
