@@ -75,7 +75,7 @@ const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
 export interface Photo {
   title: string;
-  category: `${typeof name}` | `${typeof partnerName}` | `${typeof together}`;
+  category: string;
   year: number;
   location?: string;
   description?: string;

@@ -7,25 +7,27 @@ import NotFound from "./pages/NotFound";
 import PuzzlePage from "./pages/Puzzle";
 import Signup from "./pages/SignupPage";
 import { Toaster } from "react-hot-toast";
+import Profile from "./pages/Profile";
 import { ThemeProvider } from "next-themes";
 import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import ResetPassword from "./pages/ResetPassword";
-import AdminDashboard from "./pages/AdminDashboard";
+import UploadPhoto from "./pages/Upload";
+import { useUser } from "./context/UserContext";
 import ForgotPassword from "./pages/ForgotPasswordPage";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // Smooth scrolling with Lenis
 import { ReactLenis, useLenis } from "lenis/react";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const { name, partnerName } = useUser();
 
-  const name = import.meta.env.VITE_CLIENT_NAME;
-  const partnerName = import.meta.env.VITE_CLIENT_PARTNER_NAME;
   const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
   return (
@@ -33,15 +35,15 @@ function App() {
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <TooltipProvider>
           <Toaster
-          toastOptions={{
-          success: {
-            duration: 3000,
-            iconTheme: {
-              primary: '#4ade80',
-              secondary: '#fff',
-            },
-          },
-        }}
+            toastOptions={{
+              success: {
+                duration: 3000,
+                iconTheme: {
+                  primary: "#4ade80",
+                  secondary: "#fff",
+                },
+              },
+            }}
           />
           <ReactLenis root />
 
@@ -50,7 +52,10 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password/:token" element={<ResetPassword />} />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPassword />}
+              />
 
               <Route path="/signup" element={<Signup />} />
 
@@ -60,6 +65,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
                   </ProtectedRoute>
                 }
               />
@@ -99,7 +112,7 @@ function App() {
                 path="/upload"
                 element={
                   <ProtectedRoute>
-                    <AdminDashboard />
+                    <UploadPhoto />
                   </ProtectedRoute>
                 }
               />
