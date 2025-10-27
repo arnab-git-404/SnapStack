@@ -5,12 +5,14 @@ import { Footer } from "@/components/Footer";
 import { PhotoCard } from "@/components/PhotoCard";
 import { YearFilter } from "@/components/YearFilter";
 import { usePhotos } from "@/hooks/usePhotos";
-
+import { useUser } from "@/context/UserContext";
 
 const Arnab = () => {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
-    const name = import.meta.env.VITE_CLIENT_NAME;
+    // const name = import.meta.env.VITE_CLIENT_NAME;
+      const { name, partnerName } = useUser();
+    
 
   const { photos, years, loading, error } = usePhotos(name);
 
