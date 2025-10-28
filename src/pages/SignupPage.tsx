@@ -188,6 +188,8 @@
 
 
 
+
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -196,9 +198,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { useUser } from "@/context/UserContext";
 
 export default function Signup() {
+  const { setUser, setIsAuthenticated } = useUser();
+  
   const [formData, setFormData] = useState({
     name: "",
     partnerName: "",
@@ -257,7 +261,10 @@ export default function Signup() {
       }
 
       // Cookies are automatically set by the browser
-      navigate("/");
+      setUser(data.user);
+      setIsAuthenticated(true);
+
+      navigate("/home");
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -267,7 +274,7 @@ export default function Signup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen py-8">
-      <Card className="w-full max-w-md border mt-16">
+      <Card className="w-full max-w-md border rounded-2xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
           <CardDescription className="text-center">

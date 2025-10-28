@@ -9,6 +9,7 @@ export interface Artwork {
   artistBio: string;
   imageUrl: string;
   featured?: boolean;
+  location?: string;
 }
 
 export const artworks: Artwork[] = [

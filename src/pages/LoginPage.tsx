@@ -16,6 +16,7 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock } from "lucide-react";
 import toast from "react-hot-toast";
+import { useUser } from "@/context/UserContext";
 
 // Demo accounts
 const demoAccounts = [
@@ -27,6 +28,9 @@ const demoAccounts = [
 ];
 
 export default function Login() {
+
+  const { setUser, setIsAuthenticated } = useUser();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -34,12 +38,65 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setIsLoading(true);
 
-    const loginPromise = fetch(
+  //   const loginPromise = fetch(
+  //     `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //       body: JSON.stringify({ email, password }),
+  //     }
+  //   ).then(async (response) => {
+  //     if (response.status === 404) {
+  //       throw new Error("User not found. Please check your email.");
+  //     }
+
+  //     if (response.status === 401) {
+  //       throw new Error("Invalid Password. Please try again.");
+  //     }
+
+  //     if (!response.ok) {
+  //       throw new Error("Login failed. Please try again.");
+  //     }
+
+  //     const data = await response.json();
+  //     return data;
+  //   });
+
+  //   try {
+  //     await toast.promise(loginPromise, {
+  //       loading: "Logging in...",
+  //       success: "Login successful!",
+  //       error: (err) => err.message || "An error occurred",
+  //     });
+
+  //     setUser(data.user);
+  //     setIsAuthenticated(true);
+  //     navigate("/");
+  //   } catch (err) {
+  //     setError(err instanceof Error ? err.message : "An error occurred");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError("");
+  setIsLoading(true);
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+
+  try {
+    const response = await fetch(
       `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
       {
         method: "POST",
@@ -47,39 +104,37 @@ export default function Login() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password , timezone}),
       }
-    ).then(async (response) => {
-      if (response.status === 404) {
-        throw new Error("User not found. Please check your email.");
-      }
+    );
 
-      if (response.status === 401) {
-        throw new Error("Invalid Password. Please try again.");
-      }
-
-      if (!response.ok) {
-        throw new Error("Login failed. Please try again.");
-      }
-
-      const data = await response.json();
-      return data;
-    });
-
-    try {
-      await toast.promise(loginPromise, {
-        loading: "Logging in...",
-        success: "Login successful!",
-        error: (err) => err.message || "An error occurred",
-      });
-
-      navigate("/");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
+    if (response.status === 404) {
+      throw new Error("User not found. Please check your email.");
     }
-  };
+
+    if (response.status === 401) {
+      throw new Error("Invalid Password. Please try again.");
+    }
+
+    if (!response.ok) {
+      throw new Error("Login failed. Please try again.");
+    }
+
+    const data = await response.json();
+    
+    // Update context with returned user data
+    setUser(data.user);
+    setIsAuthenticated(true);
+    
+    toast.success("Login successful!");
+    navigate("/home");
+  } catch (err) {
+    toast.error(err instanceof Error ? err.message : "An error occurred");
+    setError(err instanceof Error ? err.message : "An error occurred");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const fillDemoAccount = (email: string, password: string) => {
     setEmail(email);
@@ -90,19 +145,11 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen ">
-      <Card className="w-full max-w-md border mt-16 ">
+      <Card className="w-full max-w-md border rounded-2xl mt-20 ">
         <CardHeader className="space-y-1  ">
           <div className="text-center mb-5">
-            {/* <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-6"
-            >
-              <Lock className="w-8 h-8 text-foreground" />
-            </motion.div> */}
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">
-              {/* Arnab & Deblina's Photo Album */}
+           
+            <h1 onClick={() => navigate('/')} className="text-4xl md:text-5xl font-bold mb-3">
               SnapStack
             </h1>
             <p className="text-muted-foreground text-lg">

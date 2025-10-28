@@ -20,6 +20,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AdminPanel from "./pages/AdminPanel";
+import LandingPage from "./pages/Landing";
+
 
 // Smooth scrolling with Lenis
 import { ReactLenis, useLenis } from "lenis/react";
@@ -27,7 +29,7 @@ import { ReactLenis, useLenis } from "lenis/react";
 const queryClient = new QueryClient();
 
 function App() {
-  const { name, partnerName } = useUser();
+  const { name, partnerName, isAuthenticated } = useUser();
 
   const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
@@ -49,8 +51,9 @@ function App() {
           <ReactLenis root />
 
           <Router>
-            <Navbar />
+            {isAuthenticated && <Navbar />}
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
@@ -70,7 +73,7 @@ function App() {
 
               {/* Protected Routes */}
               <Route
-                path="/"
+                path="/home"
                 element={
                   <ProtectedRoute>
                     <Home />
@@ -128,7 +131,7 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
+            {isAuthenticated && <Footer />}
           </Router>
         </TooltipProvider>
       </ThemeProvider>

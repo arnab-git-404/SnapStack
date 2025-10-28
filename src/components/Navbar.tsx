@@ -1,172 +1,4 @@
 
-// // import { useEffect, useState } from 'react';
-// // import { Link, useLocation } from 'react-router-dom';
-// // import { Moon, Sun, Menu, X } from 'lucide-react';
-// // import { Button } from '@/components/ui/button';
-// // import { useTheme } from 'next-themes';
-// // import { motion, AnimatePresence } from 'framer-motion';
-// // import { FaHeart } from "react-icons/fa";
-// // import { useUser } from "@/context/UserContext";
-
-
-
-// // export const Navbar = () => {
-// //   const [isOpen, setIsOpen] = useState(false);
-// //   const { theme, setTheme } = useTheme();
-// //   const location = useLocation();
-
-// //   const { name , partnerName } = useUser();
-
-// //   const links = [
-// //     { name: 'Home', path: '/' },
-// //     { name: name, path: `/${name}` },
-// //     { name: partnerName, path: `/${partnerName}` },
-// //     { name: 'together', path: '/together' },
-// //     { name: 'Puzzle', path: '/puzzle' },
-// //     { name: 'Upload', path:'/upload'}
-// //   ];
-
-// //   const isActive = (path: string) => location.pathname === path;
-
-// //   return (
-// //     <>
-// //       <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-background/80 backdrop-blur-md border rounded-full w-[95%] max-w-7xl">
-// //         <div className="px-6 py-4">
-// //           <div className="flex items-center justify-between">
-// //             <Link to="/" className="text-3xl font-bold flex items-center gap-2">
-// //               <FaHeart className="w-10 h-10 text-red-500" />
-// //               Dear
-// //             </Link>
-
-// //             {/* Desktop Navigation */}
-// //             <div className="hidden md:flex items-center gap-8">
-// //               {links.map((link) => (
-// //                 <Link
-// //                   key={link.path}
-// //                   to={link.path}
-// //                   className={`text-sm font-medium transition-colors relative ${
-// //                     isActive(link.path)
-// //                       ? 'text-foreground'
-// //                       : 'text-muted-foreground hover:text-foreground'
-// //                   }`}
-// //                 >
-// //                   {link.name}
-// //                   {isActive(link.path) && (
-// //                     <motion.div
-// //                       layoutId="navbar-indicator"
-// //                       className="absolute -bottom-[21px] left-0 right-0 h-0.5 bg-accent"
-// //                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-// //                     />
-// //                   )}
-// //                 </Link>
-// //               ))}
-
-// //               <Button
-// //                 variant="ghost"
-// //                 size="icon"
-// //                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-// //                 className="rounded-full"
-// //               >
-// //                 {theme === 'dark' ? (
-// //                   <Sun className="w-5 h-5" />
-// //                 ) : (
-// //                   <Moon className="w-5 h-5" />
-// //                 )}
-// //               </Button>
-// //             </div>
-
-// //             {/* Mobile Menu Button */}
-// //             <div className="flex md:hidden items-center gap-2">
-// //               <Button
-// //                 variant="ghost"
-// //                 size="icon"
-// //                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-// //                 className="rounded-full"
-// //               >
-// //                 {theme === 'dark' ? (
-// //                   <Sun className="w-5 h-5" />
-// //                 ) : (
-// //                   <Moon className="w-5 h-5" />
-// //                 )}
-// //               </Button>
-// //               <Button
-// //                 variant="ghost"
-// //                 size="icon"
-// //                 onClick={() => setIsOpen(!isOpen)}
-// //                 className="rounded-full"
-// //               >
-// //                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-// //               </Button>
-// //             </div>
-// //           </div>
-// //         </div>
-// //       </nav>
-
-// //       {/* Mobile Navigation Sidebar */}
-// //       <AnimatePresence>
-// //         {isOpen && (
-// //           <>
-// //             {/* Backdrop */}
-// //             <motion.div
-// //               initial={{ opacity: 0 }}
-// //               animate={{ opacity: 1 }}
-// //               exit={{ opacity: 0 }}
-// //               onClick={() => setIsOpen(false)}
-// //               className="fixed inset-0 bg-black/50 z-40 md:hidden"
-// //             />
-            
-// //             {/* Sidebar */}
-// //             <motion.div
-// //               initial={{ x: '100%' }}
-// //               animate={{ x: 0 }}
-// //               exit={{ x: '100%' }}
-// //               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-// //               className="fixed top-0 right-0 h-full w-64 bg-background border-l z-50 md:hidden"
-// //             >
-// //               <div className="p-6">
-// //                 <div className="flex items-center justify-between mb-8">
-// //                   <Link to="/" className="text-2xl font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
-// //                     <FaHeart className="w-8 h-8 text-red-500" />
-// //                     Dear
-// //                   </Link>
-// //                   <Button
-// //                     variant="ghost"
-// //                     size="icon"
-// //                     onClick={() => setIsOpen(false)}
-// //                     className="rounded-full"
-// //                   >
-// //                     <X className="w-5 h-5" />
-// //                   </Button>
-// //                 </div>
-                
-// //                 <div className="space-y-4">
-// //                   {links.map((link) => (
-// //                     <Link
-// //                       key={link.path}
-// //                       to={link.path}
-// //                       onClick={() => setIsOpen(false)}
-// //                       className={`block text-lg font-medium transition-colors py-2 ${
-// //                         isActive(link.path)
-// //                           ? 'text-foreground'
-// //                           : 'text-muted-foreground hover:text-foreground'
-// //                       }`}
-// //                     >
-// //                       {link.name}
-// //                     </Link>
-// //                   ))}
-// //                 </div>
-// //               </div>
-// //             </motion.div>
-// //           </>
-// //         )}
-// //       </AnimatePresence>
-// //     </>
-// //   );
-// // };
-
-
-// src/components/Navbar.tsx
-
 import * as React from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -197,35 +29,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import toast from 'react-hot-toast';
 
-
-// const ListItem = React.forwardRef<
-//   React.ElementRef<typeof Link>,
-//   React.ComponentPropsWithoutRef<typeof Link> & { title: string; active?: boolean }
-// >(({ className, title, children, active, to, ...props }, ref) => {
-//   return (
-//     <li>
-//       <NavigationMenuLink asChild active={active}>
-//         <Link
-//           ref={ref}
-//           to={to}
-//           className={cn(
-//             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-black/50 hover:dark:bg-white/50 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-//             { 'bg-accent/50 text-accent-foreground': active }, // Highlight if active
-//             className,
-//           )}
-//           {...props}
-//         >
-//           <div className="text-sm font-medium leading-none">{title}</div>
-//           <p className="line-clamp-2 text-sm leading-snug ">
-//             {children}
-//           </p>
-//         </Link>
-//       </NavigationMenuLink>
-//     </li>
-//   );
-// });
-// ListItem.displayName = 'ListItem';
 
 const ListItem = React.forwardRef<
   React.ElementRef<typeof Link>,
@@ -266,9 +71,9 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { name, partnerName, user } = useUser();
+  const { name, partnerName, user, logout, isAuthenticated } = useUser();
 
-  // This 'links' array is now only used for the MOBILE menu, which is perfect.
+ 
   const links = [
     { name: 'Home', path: '/' },
     { name: name, path: `/${name}` },
@@ -282,12 +87,10 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/logout`, {
-        method: 'POST',
-        credentials: 'include',
-      });
+      await logout();
       navigate('/login');
     } catch (error) {
+      toast.error('Logout failed');
       console.error('Logout failed:', error);
     }
   };
@@ -302,12 +105,14 @@ export const Navbar = () => {
       .slice(0, 2);
   };
 
+  if (isAuthenticated) 
+
   return (
     <>
       <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-background/80 backdrop-blur-md border rounded-full w-[95%] max-w-7xl">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-3xl font-bold flex items-center gap-2">
+            <Link to="/home" className="text-3xl font-bold flex items-center gap-2">
               <FaHeart className="w-10 h-10 text-red-500" />
               Dear
             </Link>
@@ -318,7 +123,7 @@ export const Navbar = () => {
                 <NavigationMenuList>
                   {/* 1. Home Link */}
                   <NavigationMenuItem>
-                    <Link to="/">
+                    <Link to="/home">
                       <NavigationMenuLink
                         active={isActive('/')}
                         className={navigationMenuTriggerStyle()}
@@ -433,7 +238,7 @@ export const Navbar = () => {
                       <DropdownMenuLabel>
                         <div className="flex flex-col space-y-1">
                           <p className="text-sm font-medium leading-none">
-                            {user.name} & {user.partnerName}
+                            {name} & {partnerName}
                           </p>
                           <p className="text-xs leading-none text-muted-foreground">
                             {user.email}

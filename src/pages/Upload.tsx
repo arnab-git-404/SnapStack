@@ -39,7 +39,7 @@ interface PhotoFormData {
 
 const uploadPhoto = () => {
   const server = import.meta.env.VITE_SERVER_URL;
-  const { name, partnerName } = useUser();
+  const { name, partnerName, logout } = useUser();
 
 
   const navigate = useNavigate();
@@ -165,21 +165,8 @@ const uploadPhoto = () => {
   };
 
   const handleLogout = async () => {
-    try {
-      const response = await fetch(`${server}/api/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        toast.success("Logged out successfully");
-      }
-
-      navigate("/login");
-    } catch (error) {
-      toast.error("Failed to log out");
-      console.error("Logout error:", error);
-    }
+    await logout();
+    navigate("/login");
   };
 
   return (
