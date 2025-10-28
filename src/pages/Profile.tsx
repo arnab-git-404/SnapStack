@@ -193,6 +193,14 @@ export default function ProfilePage() {
                   {user.email}
                 </span>
               </div>
+              <div className="flex justify-between items-center py-2 border-b">
+                <span className="font-medium text-gray-700 dark:text-gray-300">
+                  Featured Memory 
+                </span>
+                <span className="text-gray-900 dark:text-gray-100">
+                  {user.featuredMemory ? user?.featuredMemory : "N/A"}
+                </span>
+              </div>
               <div className="pt-4 grid grid-cols-2 gap-2">
                 <Button onClick={() => setIsEditing(true)} className="w-full">
                   <Edit className="mr-2 h-4 w-4" />
