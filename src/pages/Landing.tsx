@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -12,6 +13,8 @@ import {
   Shield,
   Zap,
   Check,
+  Moon,ArrowUp,
+  Sun,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,8 +25,49 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
 
 const LandingPage = () => {
+  const [isDark, setIsDark] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false); // <-- ADDED
+
+  useEffect(() => {
+    // Check system preference on mount
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+    const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+    useEffect(() => {
+    const checkScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", checkScroll);
+    // Cleanup
+    return () => window.removeEventListener("scroll", checkScroll);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setIsDark(!isDark);
+    if (isDark) {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  };
+
   const features = [
     {
       icon: Upload,
@@ -97,13 +141,18 @@ const LandingPage = () => {
         "Basic organization",
         "Mobile access",
         "Email support",
+        "Notifications",
+        "Basic sharing options",
       ],
       cta: "Get Started",
       popular: false,
     },
-    {
+
+
+        {
       name: "Premium",
-      price: "$9",
+      price: "$0",
+      originalPrice: "$9",
       period: "/month",
       description: "Best for active couples",
       features: [
@@ -116,6 +165,7 @@ const LandingPage = () => {
       ],
       cta: "Start Free Trial",
       popular: true,
+      badgeText: "Limited Offer!",
     },
     {
       name: "Lifetime",
@@ -136,9 +186,9 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen  transition-colors duration-300">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -167,30 +217,49 @@ const LandingPage = () => {
           />
         </div>
 
-        <div className="max-w-7xl w-full relative z-10">
+        <div className=" relative z-10">
           {/* Navigation */}
+
           <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="absolute top-0 left-0 right-0 flex justify-between items-center py-6 px-6"
+            className="fixed top-0 left-0 right-0 z-50 mt-10 px-4 sm:px-6 md:px-6"
           >
-            <Link to="/" className="flex items-center gap-2">
-              <Camera className="w-8 h-8 text-purple-600 dark:text-purple-400" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                SnapStack
-              </span>
-            </Link>
-            <div className="flex gap-4">
-              <Button variant="ghost" asChild>
-                <Link to="/login">Login</Link>
-              </Button>
-              <Button
-                asChild
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white"
-              >
-                <Link to="/signup">Get Started</Link>
-              </Button>
+            <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-4 sm:px-6  backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-3xl">
+              <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+                <Camera className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600 dark:text-purple-400" />
+                <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                  SnapStack
+                </span>
+              </Link>
+              <div className="flex gap-2 sm:gap-4 items-center">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleDarkMode}
+                  className="rounded-full"
+                >
+                  {isDark ? (
+                    <Sun className="w-5 h-5" />
+                  ) : (
+                    <Moon className="w-5 h-5" />
+                  )}
+                </Button>
+                <Button
+                  variant="ghost"
+                  asChild
+                  className="hidden sm:inline-flex"
+                >
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button
+                  asChild
+                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white text-sm sm:text-base"
+                >
+                  <Link to="/signup">Get Started</Link>
+                </Button>
+              </div>
             </div>
           </motion.nav>
 
@@ -199,21 +268,21 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center mt-32"
+            className="text-center mt-24 sm:mt-32 px-4"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 mb-4 sm:mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
             >
-              <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
+              <span className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
                 Your Personal Photo Gallery Platform
               </span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                 Capture Every Moment
               </span>
@@ -223,93 +292,77 @@ const LandingPage = () => {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed">
               SnapStack is the beautiful photo gallery platform designed
               exclusively for couples. Store, organize, and celebrate your
               journey together in one secure place.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
                   asChild
-                  size="lg"
-                  className="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-8"
+                  className="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-full px-6 sm:px-8 w-full sm:w-auto"
                 >
                   <Link to="/signup">
                     Start Your Journey Free
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
+              
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
                   asChild
-                  size="lg"
                   variant="outline"
-                  className="rounded-full px-8"
+                  className="rounded-full px-6 sm:px-8 w-full sm:w-auto"
                 >
                   <a href="#features">Learn More</a>
                 </Button>
               </motion.div>
             </div>
-
-            {/* Hero Image */}
-            {/* <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-20 relative"
-            >
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-3xl opacity-20" />
-              <img
-                src="/image.png"
-                alt="SnapStack Preview"
-                className="relative rounded-3xl shadow-2xl border-4 border-white/50 dark:border-slate-800/50 w-full max-w-4xl mx-auto"
-              />
-            </motion.div> */}
           </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-32 px-6 ">
+      <section id="features" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 mb-4 sm:mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
             >
-              <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
+              <span className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
                 Features
               </span>
             </motion.div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               Everything You Need
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               Powerful features designed to make managing and sharing your
               memories effortless
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -318,13 +371,15 @@ const LandingPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full border-2 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl">
+                <Card className="h-full border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl dark:hover:shadow-purple-500/10">
                   <CardHeader>
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 flex items-center justify-center mb-4">
                       <feature.icon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                     </div>
-                    <CardTitle>{feature.title}</CardTitle>
-                    <CardDescription className="text-base">
+                    <CardTitle className="text-lg sm:text-xl">
+                      {feature.title}
+                    </CardTitle>
+                    <CardDescription className="text-sm sm:text-base">
                       {feature.description}
                     </CardDescription>
                   </CardHeader>
@@ -336,36 +391,36 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-32 px-6">
+      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 ">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 mb-4 sm:mb-6 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20"
             >
-              <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400" />
+              <span className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
                 Testimonials
               </span>
             </motion.div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               Loved by Couples
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               See what couples are saying about their experience with SnapStack
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
@@ -374,21 +429,23 @@ const LandingPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full">
+                <Card className="h-full border border-slate-200 dark:border-slate-800">
                   <CardHeader>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 flex items-center justify-center text-white font-bold">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 flex items-center justify-center text-white font-bold text-sm sm:text-base">
                         {testimonial.avatar}
                       </div>
                       <div>
-                        <CardTitle className="text-base">
+                        <CardTitle className="text-sm sm:text-base">
                           {testimonial.name}
                         </CardTitle>
-                        <CardDescription>{testimonial.role}</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">
+                          {testimonial.role}
+                        </CardDescription>
                       </div>
                     </div>
                     <CardContent className="p-0">
-                      <p className="text-slate-600 dark:text-slate-300 italic">
+                      <p className="text-slate-600 dark:text-slate-300 italic text-sm sm:text-base">
                         "{testimonial.content}"
                       </p>
                     </CardContent>
@@ -401,28 +458,28 @@ const LandingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-32 px-6 ">
+      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
             <Badge variant="secondary" className="mb-4">
               Pricing
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               Choose Your Plan
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               Start free and upgrade when you're ready. No hidden fees, cancel
               anytime.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {pricing.map((plan, index) => (
               <motion.div
                 key={plan.name}
@@ -433,32 +490,40 @@ const LandingPage = () => {
               >
                 <Card
                   className={`h-full relative ${
-                    plan.popular ? "border-purple-500 border-2 shadow-xl" : ""
+                    plan.popular
+                      ? "border-2 border-purple-500 shadow-xl dark:shadow-purple-500/20"
+                      : "border border-slate-200 dark:border-slate-800"
                   }`}
                 >
                   {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <Badge className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white">
+                    <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2">
+                      <Badge className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white text-xs">
                         Most Popular
                       </Badge>
                     </div>
                   )}
                   <CardHeader>
-                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                    <CardDescription>{plan.description}</CardDescription>
+                    <CardTitle className="text-xl sm:text-2xl">
+                      {plan.name}
+                    </CardTitle>
+                    <CardDescription className="text-sm sm:text-base">
+                      {plan.description}
+                    </CardDescription>
                     <div className="mt-4">
-                      <span className="text-4xl font-bold">{plan.price}</span>
-                      <span className="text-slate-600 dark:text-slate-400">
+                      <span className="text-3xl sm:text-4xl font-bold">
+                        {plan.price}
+                      </span>
+                      <span className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
                         {plan.period}
                       </span>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-3 mb-6">
+                    <ul className="space-y-2 sm:space-y-3 mb-6">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-green-600 dark:text-green-400" />
-                          <span className="text-slate-600 dark:text-slate-300">
+                          <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                          <span className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                             {feature}
                           </span>
                         </li>
@@ -466,7 +531,7 @@ const LandingPage = () => {
                     </ul>
                     <Button
                       asChild
-                      className={`w-full ${
+                      className={`w-full text-sm sm:text-base ${
                         plan.popular
                           ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white"
                           : ""
@@ -483,8 +548,111 @@ const LandingPage = () => {
         </div>
       </section>
 
+        <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
+              <div className="max-w-7xl mx-auto">
+                {/* ... (Pricing header) ... */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center mb-12 sm:mb-16"
+                >
+                  <Badge variant="secondary" className="mb-4">
+                    Pricing
+                  </Badge>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                    Choose Your Plan
+                  </h2>
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                    Start free and upgrade when you're ready. No hidden fees, cancel
+                    anytime.
+                  </p>
+                </motion.div>
+      
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+                  {pricing.map((plan, index) => (
+                    <motion.div
+                      key={plan.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <Card
+                        className={`h-full relative ${
+                          plan.popular
+                            ? "border-2 border-purple-500 shadow-xl dark:shadow-purple-500/20"
+                            : "border border-slate-200 dark:border-slate-800"
+                        }`}
+                      >
+                        {plan.popular && (
+                          <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2">
+                            <Badge className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white text-xs">
+                              Most Popular
+                            </Badge>
+                          </div>
+                        )}
+                        <CardHeader>
+                          {/* <-- MODIFIED: Added badge here --> */}
+                          <div className="flex items-center gap-2">
+                            <CardTitle className="text-xl sm:text-2xl">
+                              {plan.name}
+                            </CardTitle>
+                            {plan.badgeText && (
+                              <Badge variant="destructive">{plan.badgeText}</Badge>
+                            )}
+                          </div>
+                          <CardDescription className="text-sm sm:text-base">
+                            {plan.description}
+                          </CardDescription>
+                          {/* <-- MODIFIED: Price display --> */}
+                          <div className="mt-4 flex items-baseline gap-2">
+                            <span className="text-3xl sm:text-4xl font-bold">
+                              {plan.price}
+                            </span>
+                            {plan.originalPrice && (
+                              <span className="text-xl sm:text-2xl font-bold text-slate-400 dark:text-slate-500 line-through">
+                                {plan.originalPrice}
+                              </span>
+                            )}
+                            <span className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                              {plan.period}
+                            </span>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <ul className="space-y-2 sm:space-y-3 mb-6">
+                            {plan.features.map((feature) => (
+                              <li key={feature} className="flex items-center gap-2">
+                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                                <span className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                                  {feature}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                          <Button
+                            asChild
+                            className={`w-full text-sm sm:text-base ${
+                              plan.popular
+                                ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white"
+                                : ""
+                            }`}
+                            variant={plan.popular ? "default" : "outline"}
+                          >
+                            <Link to="/signup">{plan.cta}</Link>
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
       {/* CTA Section */}
-      <section className="py-32 px-6">
+      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -492,20 +660,20 @@ const LandingPage = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 mb-8 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20">
-            <Heart className="w-5 h-5 text-pink-600 dark:text-pink-400" />
-            <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
+          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 dark:border-blue-400/20">
+            <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600 dark:text-pink-400" />
+            <span className="text-xs sm:text-sm font-medium text-purple-600 dark:text-purple-400">
               Join Thousands of Couples
             </span>
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               Ready to Start Your Journey?
             </span>
           </h2>
 
-          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-12 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 dark:text-slate-300 mb-8 sm:mb-12 leading-relaxed">
             Create your free account today and start preserving your precious
             memories together.
           </p>
@@ -513,33 +681,32 @@ const LandingPage = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               asChild
-              size="lg"
-              className="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-full px-12 py-6 text-lg"
+              className="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-full px-8 sm:px-12 py-5 sm:py-6 text-base sm:text-lg w-full sm:w-auto"
             >
               <Link to="/signup">
                 Get Started for Free
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <ArrowRight className="ml-2 sm:ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
               </Link>
             </Button>
           </motion.div>
 
-          <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
+          <p className="mt-4 sm:mt-6 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             No credit card required • Free forever plan available
           </p>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-12 px-6">
+      <footer className="border-t border-slate-200 dark:border-slate-800 py-8 sm:py-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2">
-              <Camera className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+              <Camera className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600 dark:text-purple-400" />
+              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                 SnapStack
               </span>
             </div>
-            <div className="flex gap-6 text-sm text-slate-600 dark:text-slate-400">
+            <div className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-400 justify-center">
               <Link
                 to="/privacy"
                 className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
@@ -560,12 +727,31 @@ const LandingPage = () => {
               </Link>
             </div>
           </div>
-          <div className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
+          <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             © {new Date().getFullYear()} SnapStack. Made with ❤️ for couples
             everywhere.
           </div>
         </div>
       </footer>
+
+      <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: showScrollTop ? 1 : 0,
+                y: showScrollTop ? 0 : 20,
+              }}
+              transition={{ duration: 0.3 }}
+              className="fixed bottom-6 right-6 z-50"
+            >
+              <Button
+                size="icon"
+                onClick={scrollToTop}
+                className="rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
+                aria-label="Scroll to top"
+              >
+                <ArrowUp className="w-5 h-5" />
+              </Button>
+            </motion.div>
     </div>
   );
 };
