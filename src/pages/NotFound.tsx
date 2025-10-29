@@ -1,38 +1,11 @@
-// import { useLocation } from "react-router-dom";
-// import { useEffect } from "react";
-
-// const NotFound = () => {
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-//   }, [location.pathname]);
-
-//   return (
-//     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-//       <div className="text-center">
-//         <h1 className="mb-4 text-4xl font-bold">404</h1>
-//         <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-//         <a href="/" className="text-blue-500 underline hover:text-blue-700">
-//           Return to Home
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default NotFound;
-
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Home, Search, ArrowLeft } from "lucide-react";
 
 const NotFound = () => {
+  
   const location = useLocation();
   const navigate = useNavigate();
-
-
 
   return (
     <div className="flex min-h-screen items-center justify-center  px-4">
@@ -65,7 +38,7 @@ const NotFound = () => {
             Go Back
           </button>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-purple-500/50"
           >
             <Home className="w-5 h-5" />
