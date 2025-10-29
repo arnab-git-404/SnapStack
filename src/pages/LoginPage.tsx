@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock } from "lucide-react";
 import toast from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 
@@ -91,7 +90,7 @@ export default function Login() {
   e.preventDefault();
   setError("");
   setIsLoading(true);
-
+ 
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 
@@ -122,6 +121,13 @@ export default function Login() {
 
     const data = await response.json();
     
+    if (data.user.isActivated === false) {
+      toast( "Please contact with admin to activate your account.", {
+        icon: '🔒',
+      });
+      return;
+    }
+
     // Update context with returned user data
     setUser(data.user);
     setIsAuthenticated(true);
@@ -144,12 +150,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <Card className="w-full max-w-md border rounded-2xl mt-20 ">
+    <div className="flex items-center justify-center min-h-screen py-8 px-5">
+      <Card className="w-full max-w-md border rounded-2xl mt-20">
         <CardHeader className="space-y-1  ">
           <div className="text-center mb-5">
            
-            <h1 onClick={() => navigate('/')} className="text-4xl md:text-5xl font-bold mb-3">
+            <h1 onClick={() => navigate('/')} className=" hover:cursor-pointer text-4xl md:text-5xl font-bold mb-3">
               SnapStack
             </h1>
             <p className="text-muted-foreground text-lg">
