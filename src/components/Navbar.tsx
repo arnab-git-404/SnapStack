@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Moon, Sun, Menu, X, LogOut, User } from 'lucide-react';
+import { Moon, Sun, Menu, X, LogOut, User, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -73,7 +73,6 @@ export const Navbar = () => {
 
   const { name, partnerName, user, logout, isAuthenticated } = useUser();
 
- 
   const links = [
     { name: 'Home', path: '/' },
     { name: name, path: `/${name}` },
@@ -81,6 +80,7 @@ export const Navbar = () => {
     { name: 'together', path: '/together' },
     { name: 'Puzzle', path: '/puzzle' },
     { name: 'Upload', path: '/upload' },
+    { name: 'Chat', path: '/chat' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -104,8 +104,6 @@ export const Navbar = () => {
       .toUpperCase()
       .slice(0, 2);
   };
-
-  if (isAuthenticated) 
 
   return (
     <>
@@ -203,6 +201,21 @@ export const Navbar = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
+
+
+{/* Chat Icon */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate('/chat')}
+                className={cn(
+                  'rounded-full',
+                  isActive('/chat') && 'bg-accent/50 text-accent-foreground'
+                )}
+                title="Chat with your partner"
+              >
+                <MessageCircle className="w-8 h-8" />
+              </Button>
 
               {/* Theme Toggle (remains the same) */}
               <Button

@@ -5,8 +5,10 @@ import { toast } from "react-hot-toast";
 
 interface User {
   id: string;
+  _id: string;
   name: string;
   partnerName: string;
+  partnerId: string;
   email: string;
 }
 
@@ -14,6 +16,7 @@ interface UserContextType {
   user: User | null;
   name: string;
   partnerName: string;
+  partnerId: string;
   setUser: (user: User | null) => void;
   isLoading: boolean;
   isAuthenticated: boolean | null;
@@ -114,13 +117,18 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     initAuth();
   }, []);
 
-  const name = user?.name || 'Loading...';
-  const partnerName = user?.partnerName || 'Loading...';
+  const name = user?.name
+  const partnerName = user?.partnerName
+  const partnerId = user?.partnerId
+
+  const userId = user?.id || user?._id;
+
 
   return (
     <UserContext.Provider value={{ 
       name, 
       partnerName, 
+      partnerId,
       user, 
       setUser, 
       isLoading, 

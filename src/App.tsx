@@ -25,6 +25,7 @@ import LandingPage from "./pages/Landing";
 
 // Smooth scrolling with Lenis
 import { ReactLenis, useLenis } from "lenis/react";
+import Chat from "./pages/Chat";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,7 @@ function App() {
   const together = import.meta.env.VITE_CLIENT_TOGETHER_NAME;
 
   return (
-    <QueryClientProvider client={queryClient}>
+    // <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <TooltipProvider>
           <Toaster
@@ -47,11 +48,11 @@ function App() {
                 },
               },
             }}
-          />
+            />
           <ReactLenis root />
 
           <Router>
-            {isAuthenticated && <Navbar />}
+            <Navbar/>
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
@@ -68,6 +69,7 @@ function App() {
                   
                 }
               />
+              <Route path="/chat" element={<Chat />} />
 
               <Route path="/signup" element={<Signup />} />
 
@@ -131,11 +133,11 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
             </Routes>
-            {isAuthenticated && <Footer />}
+            {/* {isAuthenticated && <Footer />} */}
           </Router>
         </TooltipProvider>
       </ThemeProvider>
-    </QueryClientProvider>
+    // </QueryClientProvider>
   );
 }
 export default App;

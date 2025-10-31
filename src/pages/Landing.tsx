@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -13,7 +12,8 @@ import {
   Shield,
   Zap,
   Check,
-  Moon,ArrowUp,
+  Moon,
+  ArrowUp,
   Sun,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -39,13 +39,13 @@ const LandingPage = () => {
     }
   }, []);
 
-    const scrollToTop = () => {
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-    useEffect(() => {
+  useEffect(() => {
     const checkScroll = () => {
       if (window.scrollY > 300) {
         setShowScrollTop(true);
@@ -148,8 +148,7 @@ const LandingPage = () => {
       popular: false,
     },
 
-
-        {
+    {
       name: "Premium",
       price: "$0",
       originalPrice: "$9",
@@ -220,7 +219,7 @@ const LandingPage = () => {
         <div className=" relative z-10">
           {/* Navigation */}
 
-          <motion.nav
+          {/* <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -261,7 +260,7 @@ const LandingPage = () => {
                 </Button>
               </div>
             </div>
-          </motion.nav>
+          </motion.nav> */}
 
           {/* Hero Content */}
           <motion.div
@@ -313,7 +312,7 @@ const LandingPage = () => {
                   </Link>
                 </Button>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -458,8 +457,10 @@ const LandingPage = () => {
       </section>
 
       {/* Pricing Section */}
+
       <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
+          {/* ... (Pricing header) ... */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -503,16 +504,28 @@ const LandingPage = () => {
                     </div>
                   )}
                   <CardHeader>
-                    <CardTitle className="text-xl sm:text-2xl">
-                      {plan.name}
-                    </CardTitle>
+                    {/* <-- MODIFIED: Added badge here --> */}
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-xl sm:text-2xl">
+                        {plan.name}
+                      </CardTitle>
+                      {plan.badgeText && (
+                        <Badge variant="destructive">{plan.badgeText}</Badge>
+                      )}
+                    </div>
                     <CardDescription className="text-sm sm:text-base">
                       {plan.description}
                     </CardDescription>
-                    <div className="mt-4">
+                    {/* <-- MODIFIED: Price display --> */}
+                    <div className="mt-4 flex items-baseline gap-2">
                       <span className="text-3xl sm:text-4xl font-bold">
                         {plan.price}
                       </span>
+                      {plan.originalPrice && (
+                        <span className="text-xl sm:text-2xl font-bold text-slate-400 dark:text-slate-500 line-through">
+                          {plan.originalPrice}
+                        </span>
+                      )}
                       <span className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
                         {plan.period}
                       </span>
@@ -547,109 +560,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-        <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
-              <div className="max-w-7xl mx-auto">
-                {/* ... (Pricing header) ... */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="text-center mb-12 sm:mb-16"
-                >
-                  <Badge variant="secondary" className="mb-4">
-                    Pricing
-                  </Badge>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                    Choose Your Plan
-                  </h2>
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                    Start free and upgrade when you're ready. No hidden fees, cancel
-                    anytime.
-                  </p>
-                </motion.div>
-      
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-                  {pricing.map((plan, index) => (
-                    <motion.div
-                      key={plan.name}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <Card
-                        className={`h-full relative ${
-                          plan.popular
-                            ? "border-2 border-purple-500 shadow-xl dark:shadow-purple-500/20"
-                            : "border border-slate-200 dark:border-slate-800"
-                        }`}
-                      >
-                        {plan.popular && (
-                          <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2">
-                            <Badge className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white text-xs">
-                              Most Popular
-                            </Badge>
-                          </div>
-                        )}
-                        <CardHeader>
-                          {/* <-- MODIFIED: Added badge here --> */}
-                          <div className="flex items-center gap-2">
-                            <CardTitle className="text-xl sm:text-2xl">
-                              {plan.name}
-                            </CardTitle>
-                            {plan.badgeText && (
-                              <Badge variant="destructive">{plan.badgeText}</Badge>
-                            )}
-                          </div>
-                          <CardDescription className="text-sm sm:text-base">
-                            {plan.description}
-                          </CardDescription>
-                          {/* <-- MODIFIED: Price display --> */}
-                          <div className="mt-4 flex items-baseline gap-2">
-                            <span className="text-3xl sm:text-4xl font-bold">
-                              {plan.price}
-                            </span>
-                            {plan.originalPrice && (
-                              <span className="text-xl sm:text-2xl font-bold text-slate-400 dark:text-slate-500 line-through">
-                                {plan.originalPrice}
-                              </span>
-                            )}
-                            <span className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
-                              {plan.period}
-                            </span>
-                          </div>
-                        </CardHeader>
-                        <CardContent>
-                          <ul className="space-y-2 sm:space-y-3 mb-6">
-                            {plan.features.map((feature) => (
-                              <li key={feature} className="flex items-center gap-2">
-                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                                <span className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
-                                  {feature}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                          <Button
-                            asChild
-                            className={`w-full text-sm sm:text-base ${
-                              plan.popular
-                                ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white"
-                                : ""
-                            }`}
-                            variant={plan.popular ? "default" : "outline"}
-                          >
-                            <Link to="/signup">{plan.cta}</Link>
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
 
       {/* CTA Section */}
       <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6">
@@ -735,23 +645,23 @@ const LandingPage = () => {
       </footer>
 
       <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: showScrollTop ? 1 : 0,
-                y: showScrollTop ? 0 : 20,
-              }}
-              transition={{ duration: 0.3 }}
-              className="fixed bottom-6 right-6 z-50"
-            >
-              <Button
-                size="icon"
-                onClick={scrollToTop}
-                className="rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
-                aria-label="Scroll to top"
-              >
-                <ArrowUp className="w-5 h-5" />
-              </Button>
-            </motion.div>
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: showScrollTop ? 1 : 0,
+          y: showScrollTop ? 0 : 20,
+        }}
+        transition={{ duration: 0.3 }}
+        className="fixed bottom-6 right-6 z-50"
+      >
+        <Button
+          size="icon"
+          onClick={scrollToTop}
+          className="rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </Button>
+      </motion.div>
     </div>
   );
 };
