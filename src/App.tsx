@@ -21,11 +21,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AdminPanel from "./pages/AdminPanel";
 import LandingPage from "./pages/Landing";
-
+import AcceptInvitation from "./pages/AcceptInvitation";
 
 // Smooth scrolling with Lenis
 import { ReactLenis, useLenis } from "lenis/react";
 import Chat from "./pages/Chat";
+import InvitePartner from "./pages/InvitePartner";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,9 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/partner/accept-invite/:token" element={<AcceptInvitation />} />
+              <Route path="/invite-partner" element={<InvitePartner />} />
+
               <Route
                 path="/reset-password/:token"
                 element={<ResetPassword />}

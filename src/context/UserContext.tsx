@@ -1,11 +1,14 @@
-
-
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { toast } from "react-hot-toast";
 
 interface User {
   id: string;
-  _id: string;
   name: string;
   partnerName: string;
   partnerId: string;
@@ -28,15 +31,14 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  
-    const server = import.meta.env.VITE_SERVER_URL;
-  
+export const UserProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const server = import.meta.env.VITE_SERVER_URL;
+
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-
-
 
   const validateAuth = async (): Promise<boolean> => {
     try {
@@ -52,7 +54,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setIsAuthenticated(data.success);
       return data.success;
     } catch (error) {
-      console.error('❌ Auth verification error:', error);
+      console.error("❌ Auth verification error:", error);
       setIsAuthenticated(false);
       return false;
     }
@@ -61,9 +63,12 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fetchUser = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/me`, {
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/users/me`,
+        {
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -74,7 +79,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setIsAuthenticated(false);
       }
     } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error("Error fetching user:", error);
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -83,8 +88,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = async () => {
-
-        try {
+    try {
       const response = await fetch(`${server}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
@@ -101,7 +105,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       toast.error("Failed to log out");
       console.error("Logout error:", error);
     }
-
   };
 
   useEffect(() => {
@@ -117,27 +120,26 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     initAuth();
   }, []);
 
-  const name = user?.name
-  const partnerName = user?.partnerName
-  const partnerId = user?.partnerId
-
-  const userId = user?.id || user?._id;
-
+  const name = user?.name;
+  const partnerName = user?.partnerName;
+  const partnerId = user?.partnerId;
 
   return (
-    <UserContext.Provider value={{ 
-      name, 
-      partnerName, 
-      partnerId,
-      user, 
-      setUser, 
-      isLoading, 
-      isAuthenticated, 
-      setIsAuthenticated,
-      validateAuth,
-      fetchUser, 
-      logout 
-    }}>
+    <UserContext.Provider
+      value={{
+        name,
+        partnerName,
+        partnerId,
+        user,
+        setUser,
+        isLoading,
+        isAuthenticated,
+        setIsAuthenticated,
+        validateAuth,
+        fetchUser,
+        logout,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -146,7 +148,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
 };

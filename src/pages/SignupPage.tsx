@@ -3,17 +3,24 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const { setUser, setIsAuthenticated } = useUser();
-  
+
   const [formData, setFormData] = useState({
     name: "",
-    partnerName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -48,33 +55,37 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          name: formData.name,
-          partnerName: formData.partnerName,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
+      if (data.success) {
+        toast.success("Registration successful! 🎉");
+        navigate("/invite-partner");
+        setUser(data.user);
+        setIsAuthenticated(true);
       }
 
       // Cookies are automatically set by the browser
-      setUser(data.user);
-      setIsAuthenticated(true);
-
-      navigate("/home");
+      // setUser(data.user);
+      // setIsAuthenticated(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      const message = (err as any).response?.data?.message || "Registration failed";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -82,9 +93,11 @@ export default function Signup() {
 
   return (
     <div className="flex items-center justify-center min-h-screen py-8 px-5">
-      <Card className="w-full max-w-md border rounded-2xl">
+      <Card className="w-full max-w-md border rounded-2xl mt-16">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">
+            Create Account
+          </CardTitle>
           <CardDescription className="text-center">
             Enter your details to create your couple's photo gallery
           </CardDescription>
@@ -104,19 +117,6 @@ export default function Signup() {
                 type="text"
                 placeholder="John"
                 value={formData.name}
-                onChange={handleChange}
-                required
-                disabled={isLoading}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="partnerName">Partner's Name</Label>
-              <Input
-                id="partnerName"
-                name="partnerName"
-                type="text"
-                placeholder="Jane"
-                value={formData.partnerName}
                 onChange={handleChange}
                 required
                 disabled={isLoading}
@@ -198,8 +198,13 @@ export default function Signup() {
                 Login
               </Link>
             </p>
+<p className="text-sm text-blue-800 dark:hover:text-blue-200 ">
+            💡 After registration, you'll be able to invite your partner!
+          </p>
+
           </CardFooter>
         </form>
+  
       </Card>
     </div>
   );
